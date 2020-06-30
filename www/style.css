@@ -1,0 +1,64 @@
+#first_page{
+    width: 100vw;
+    height:100vh;
+    position:relative;
+    font-size: 3vw;
+}
+div p{
+    position:absolute;
+    font-size:4vw;
+}
+div button{
+    position: absolute;
+    font-size: 4vw;
+}
+#second_page{
+    position:relative;
+    width:100vw;
+    height:100vh;
+}
+#new_flag{
+    left:2vw;
+    top:2vh;
+}
+.under_btn{
+    bottom:5vh;
+    height:60vh; 
+}
+#toleft_btn{
+    left:20vw;
+    width:15vw;
+}
+#toright_btn{
+    right:5vw;
+    width:15vw;
+}
+#tofirst_btn{
+    width:10vw;
+    left:5vw;
+}
+#name_btn{
+    width:40vw;
+    left:37.5vw;
+}
+#message_btn{
+    width:40vw;
+    left:37.5vw;
+}
+#datetime{
+    right:5vw;
+    top:5vh;
+}
+#back_btn{
+    width: 30vw;
+    height: 30vh;
+    top:1vh;
+    left:1vw;
+}
+#who{
+    top:1vh;
+    text-align: right;
+    width: 60vw;
+    right: 5vw;
+    margin:0;
+}

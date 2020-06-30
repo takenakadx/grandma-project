@@ -1,0 +1,26 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="first_page">
+        <p id="new_flag">New</p>
+        <p id="datetime">2020/03/11 11:32</p>
+        <button class="under_btn" id="tofirst_btn" onclick="to_first();">最初</button>
+        <button class="under_btn" id="toleft_btn" onclick="move(1);"><=</button>
+        <button class="under_btn" id="name_btn" onclick="click_name();">None</button>
+        <button class="under_btn" id="toright_btn" onclick="move(-1);">=></button>
+    </div>
+    <div id="second_page">
+        <button id="back_btn" onclick="to_first_page();">戻る</button>
+        <p id="who">返信</p>
+        <button class="under_btn" id="tofirst_btn" onclick="resay();">〃</button>
+        <button class="under_btn" id="toleft_btn" onclick="move(-1);"><=</button>
+        <button class="under_btn" id="message_btn" onclick="click_message();">Message</button>
+        <button class="under_btn" id="toright_btn" onclick="move(1);">=></button>
+    </div>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>
