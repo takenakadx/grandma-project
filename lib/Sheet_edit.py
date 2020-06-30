@@ -1,6 +1,7 @@
 import gspread
 import threading
 import re
+from lib.DataBase import sqlite_command
 from lib.Line_api import get_id_from_token
 
 class SheetEditor(threading.Thread) :
@@ -22,6 +23,7 @@ class SheetEditor(threading.Thread) :
 
     def run(self):
         print('Sheet thread runnning start')
+        counter = 0
         if(not self.setting["active"]):
             return None
         while not self.fevent.wait(timeout=self.setting["waittime"]):
@@ -32,15 +34,23 @@ class SheetEditor(threading.Thread) :
                 additional_data["dataType"] = 'message'
                 additional_data["time"] = additional_data["time"].replace("/","-")
                 additional_data["is_read"] = 0
-                a = get_id_from_token(additional_data["token"])
-                if(a == None):
-                    a = {"sender":None,"userID":None}
-                else:
-                    self.queues["voice"].put(a["displayName"] + "さんからメッセージが届きました")
-                    print(a)
+                try:
+                    sqlcommand = sqlite_command("SELECT * FROM user",conditions=["id = {}".format(additional_data["id"])])
+                    while not sqlcommand.finished.wait(timeout=0.2):
+                        pass
 
-                additional_data.update(a)
-                self.queues['data'].put(additional_data)
+                    if(len(sqlcommand.data) == 0):
+                        a = {"displayName":"アンノウン","userID":additional_data["id"]}
+                    else:
+                        a = {["userID",["displayName"],["pictureUrl"]][i]:sqlcommand.data[0][i] for i in range(3)}
+                        self.queues["voice"].put(a["displayName"] + "さんからメッセージが届きました")
+                        print(a)
+
+                    additional_data.update(a)
+                    self.queues['data'].put(additional_data)
+                except Exception as err:
+                    print(err)
+            counter += 1
             
             
 

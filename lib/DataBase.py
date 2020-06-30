@@ -110,7 +110,6 @@ class sqlite_command:
 class DataBase(threading.Thread):
 	def __init__(self,fevent,qdict,parameters):
 		#パラメータの初期化
-		self.csv_settings = parameters["csv"]
 		self.sqlite_settings = parameters["sqlite"]
 		self.wait_time = parameters["wait_time"]
 		self.fevent = fevent
@@ -147,8 +146,6 @@ class DataBase(threading.Thread):
 					elem = self.queues['data'].get()
 					if(self.sqlite_settings["active"]):
 						write_data_to_sqlite(elem,elem["dataType"],self.tables[elem["dataType"]],self.cursor)
-					if(self.csv_settings["active"]):
-						write_data_to_csv(elem,self.csv_settings["types"],self.csv_settings["path"])
 				except Exception as err:
 					traceback.print_exc()
 					self.queues["data"].put({"time":datetime.now().strftime("%Y-%m-%d %H:%M:%S"),"dataType":"log","importance":"danger","title":str(type(err)),"body1":traceback.format_exc(),"thread":"DB"})

@@ -30,7 +30,8 @@ def main(initialize_data):
 	
 	sheet_thread.start()
 	web_thread.start()
-	voice_thread.start()
+	if(initialize_data["voice"]["active"]):
+		voice_thread.start()
 	db.start()
 
 	while True:
@@ -47,6 +48,7 @@ if __name__ == '__main__':
 		new_setting["DB"] = {"sqlite":{"active":False,"path":"datafiles/data.db","tables":{},"uniques":{},"delete":{"active":False,"hours":0},"wait_time":1}}
 		new_setting["web"] = {"ip":"localhost","port":80}
 		new_setting["sheet"] = {"active":False,"waittime":20,"sheet_url":"","certification":"","key":[]}
+		new_setting["voice"] = {"active":False}
 		with open('settings.json','w') as f:
 			f.write(json.dumps(new_setting,indent=2))
 	with open('settings.json') as f:
