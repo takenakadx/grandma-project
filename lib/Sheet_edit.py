@@ -35,22 +35,10 @@ class SheetEditor(threading.Thread) :
                 additional_data["time"] = additional_data["time"].replace("/","-")
                 additional_data["is_read"] = 0
                 try:
-                    sqlcommand = sqlite_command("SELECT * FROM user",conditions=["id = {}".format(additional_data["id"])])
-                    while not sqlcommand.finished.wait(timeout=0.2):
-                        pass
-
-                    if(len(sqlcommand.data) == 0):
-                        a = {"displayName":"アンノウン","userID":additional_data["id"]}
-                    else:
-                        a = {["userID",["displayName"],["pictureUrl"]][i]:sqlcommand.data[0][i] for i in range(3)}
-                        self.queues["voice"].put(a["displayName"] + "さんからメッセージが届きました")
-                        print(a)
-
-                    additional_data.update(a)
                     self.queues['data'].put(additional_data)
+                    self.queues["voice"].put(a["displayName"] + "さんからメッセージが届きました")
                 except Exception as err:
                     print(err)
-            counter += 1
             
             
 
