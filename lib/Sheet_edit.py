@@ -36,7 +36,7 @@ class SheetEditor(threading.Thread) :
                 additional_data["is_read"] = 0
                 try:
                     self.queues['data'].put(additional_data)
-                    self.queues["voice"].put(a["displayName"] + "さんからメッセージが届きました")
+                    self.queues["voice"].put(additional_data['displayName'] + "さんからメッセージが届きました")
                 except Exception as err:
                     print(err)
             
