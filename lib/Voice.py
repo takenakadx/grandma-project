@@ -20,6 +20,7 @@ class Say (threading.Thread):
                 continue
             text += i if is_insert else ""
         cmd = "./jsay.sh \"{}\"".format(text)
+        print(cmd)
         c = subprocess.Popen(cmd,stdin=subprocess.PIPE,shell=True)
         c.wait()
 
